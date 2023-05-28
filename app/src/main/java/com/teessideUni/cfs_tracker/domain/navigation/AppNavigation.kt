@@ -3,6 +3,7 @@ package com.teessideUni.cfs_tracker.domain.navigation
 import android.os.Build
 import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -13,9 +14,12 @@ import com.teessideUni.cfs_tracker.presentation.screens.heart_rate_report.HeartR
 import com.teessideUni.cfs_tracker.presentation.screens.home_screen.HomeScreen
 import com.teessideUni.cfs_tracker.presentation.screens.login_screen.LoginScreen
 import com.teessideUni.cfs_tracker.presentation.screens.register_screen.RegisterScene
+import com.teessideUni.cfs_tracker.presentation.screens.settings_screen.BluetoothDevicesScreen
+
 import com.teessideUni.cfs_tracker.presentation.screens.settings_screen.SettingsComponent
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Navigation(navController: NavHostController)
@@ -59,6 +63,9 @@ fun Navigation(navController: NavHostController)
                 // Or do nothing
             }
             SettingsComponent(navController = navController)
+        }
+        composable("bluetooth_pairing_screen") {
+            BluetoothDevicesScreen()
         }
     }
 }

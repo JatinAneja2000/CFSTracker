@@ -1,5 +1,8 @@
 package com.teessideUni.cfs_tracker.presentation.screens.settings_screen
 
+import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -46,6 +49,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -65,6 +69,11 @@ fun SettingsComponent(navController: NavController) {
     val viewModel: SettingsViewModel = hiltViewModel()
 
     val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { _ ->
+    }
     var isAboutExpanded by remember { mutableStateOf(false) }
     val aboutCardHeight by animateDpAsState(if (isAboutExpanded) 230.dp else 55.dp)
 
@@ -303,7 +312,9 @@ fun SettingsComponent(navController: NavController) {
 
         IconButton(
             onClick = {
-                // handle Add Device button on click
+                //  Create an Intent to start the activity
+                val intent = Intent(context, BluetoothDevicesScreen::class.java)
+                launcher.launch(intent)
             },
             enabled = userName != "Username", // Set enabled to false to disable the button
             modifier = Modifier
